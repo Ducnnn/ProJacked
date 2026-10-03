@@ -1,0 +1,28 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Kotlin compiler caches
+.kotlin/
+
+# Firebase client config: download from the Firebase console, never commit
+google-services.json
+
+# Claude Code project instructions: kept local, not committed
+CLAUDE.md
+
+# Firebase emulator logs and exported data
+*-debug.log
+/emulator-data/

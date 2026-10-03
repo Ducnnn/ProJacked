@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">ProJacked</string>
+
+    <!-- Screen titles -->
+    <string name="screen_welcome">Welcome</string>
+    <string name="screen_sign_in">Sign in</string>
+    <string name="screen_sign_up">Sign up</string>
+    <string name="screen_home">Home</string>
+    <string name="screen_training_plan">Training plan</string>
+    <string name="screen_day_constructor">Day constructor</string>
+    <string name="screen_current_day">Current day</string>
+    <string name="screen_meals">Meals</string>
+    <string name="screen_meal_constructor">Meal constructor</string>
+    <string name="screen_parameters">Parameters</string>
+    <string name="screen_profile">Profile</string>
+
+    <!-- Navigation actions -->
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="action_construct_plan">Construct plan</string>
+    <string name="action_current_day">Current day</string>
+    <string name="action_meals">Meals</string>
+    <string name="action_profile">Profile</string>
+    <string name="action_add_workout">Add new workout</string>
+    <string name="action_add_meal">Add meal</string>
+    <string name="action_suggested_nutrition">Get suggested nutrition</string>
+    <string name="action_save">Save</string>
+    <string name="action_submit">Submit</string>
+    <string name="action_log_out">Log out</string>
+
+    <!-- Placeholder screens (Phase 1) -->
+    <string name="placeholder_note">Placeholder: this screen is built in a later phase.</string>
+</resources>
