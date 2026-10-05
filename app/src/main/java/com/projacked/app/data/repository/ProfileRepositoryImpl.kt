@@ -33,6 +33,10 @@ class ProfileRepositoryImpl @Inject constructor(
         firestoreDataSource.setUser(requireUid(), profile.toDto())
     }
 
+    override suspend fun createProfileIfMissing(profile: UserProfile): Result<Boolean> = resultOf {
+        firestoreDataSource.createUserIfMissing(requireUid(), profile.toDto())
+    }
+
     override suspend fun updateParameters(parameters: BodyParameters): Result<Unit> = resultOf {
         firestoreDataSource.mergeUser(requireUid(), parameters.toFieldMap())
     }

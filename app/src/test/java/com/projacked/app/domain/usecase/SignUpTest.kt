@@ -1,3 +1,5 @@
+@file:OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+
 package com.projacked.app.domain.usecase
 
 import com.projacked.app.domain.model.BodyParameters
@@ -38,6 +40,27 @@ class SignUpTest {
         val result = signUp("taken@example.com", "secret1", "Gleb")
 
         assertSame(error, result.exceptionOrNull())
+        assertNull(profileRepository.profile.value)
+    }
+
+    @Test
+    fun `a failed profile write still counts as success`() = runTest {
+        profileRepository.createProfileError = IllegalStateException("offline")
+
+        val result = signUp("new@example.com", "secret1", "Gleb")
+
+        assertTrue(result.isSuccess)
+        assertEquals(listOf("new@example.com"), authRepository.createdAccounts)
+    }
+
+    @Test
+    fun `a profile write slower than 5 seconds returns success after 5 seconds`() = runTest {
+        profileRepository.createDelayMillis = 60_000
+
+        val result = signUp("new@example.com", "secret1", "Gleb")
+
+        assertTrue(result.isSuccess)
+        assertEquals(5_000L, testScheduler.currentTime)
         assertNull(profileRepository.profile.value)
     }
 }

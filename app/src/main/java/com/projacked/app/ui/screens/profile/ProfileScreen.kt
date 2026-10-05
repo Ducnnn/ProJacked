@@ -12,18 +12,18 @@ import com.projacked.app.ui.theme.ProJackedTheme
 /** Phase 1 placeholder. Built in Phase 9. */
 @Composable
 fun ProfileScreen(
-    onLoggedOut: () -> Unit,
+    onLogOut: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     PlaceholderScreen(
         title = stringResource(R.string.screen_profile),
         modifier = modifier,
-        actions = listOf(PlaceholderAction(stringResource(R.string.action_log_out), onLoggedOut)),
+        actions = listOf(PlaceholderAction(stringResource(R.string.action_log_out), onLogOut)),
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun ProfileScreenPreview() {
-    ProJackedTheme { ProfileScreen(onLoggedOut = {}) }
+    ProJackedTheme { ProfileScreen(onLogOut = {}) }
 }
