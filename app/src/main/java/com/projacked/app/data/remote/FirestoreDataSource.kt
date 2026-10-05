@@ -37,6 +37,22 @@ class FirestoreDataSource @Inject constructor(
     }
 
     /**
+     * Creates `users/{uid}` in a transaction only if it's missing. Returns true when it created it. Needs the server,
+     * so it fails offline. `createdAt` stays null, so `@ServerTimestamp` fills it in.
+     */
+    suspend fun createUserIfMissing(uid: String, user: UserDto): Boolean {
+        val ref = db.document(FirestorePaths.user(uid))
+        return db.runTransaction { transaction ->
+            if (transaction.get(ref).exists()) {
+                false
+            } else {
+                transaction.set(ref, user)
+                true
+            }
+        }.await()
+    }
+
+    /**
      * Writes [fields] and leaves the rest of the document alone. Creates the document if it doesn't exist: the old
      * app wrote it without checking, so some accounts may have none (an `update` would fail for them).
      */

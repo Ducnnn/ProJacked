@@ -2,7 +2,7 @@
     <string name="app_name">ProJacked</string>
 
     <!-- Screen titles -->
-    <string name="screen_welcome">Welcome</string>
+    <string name="screen_welcome">Welcome!</string>
     <string name="screen_sign_in">Sign in</string>
     <string name="screen_sign_up">Sign up</string>
     <string name="screen_home">Home</string>
@@ -27,6 +27,23 @@
     <string name="action_save">Save</string>
     <string name="action_submit">Submit</string>
     <string name="action_log_out">Log out</string>
+
+    <!-- Auth -->
+    <string name="auth_hint_name">Name</string>
+    <string name="auth_hint_email">Email</string>
+    <string name="auth_hint_password">Password</string>
+    <string name="auth_error_name_required">Enter your name</string>
+    <string name="auth_error_email_required">Enter your email</string>
+    <string name="auth_error_password_required">Enter your password</string>
+    <string name="auth_error_invalid_email">Email should be yourname@website.domain</string>
+    <string name="auth_error_password_too_short">Password must be at least 6 characters long</string>
+    <string name="auth_error_password_invalid_characters" formatted="false">Password may contain only uppercase and lowercase letters, numbers and these symbols: ~`!\@#$%^&amp;*()_-+={[}]|\\:;\"\'&lt;,&gt;.\?/</string>
+    <string name="auth_error_invalid_credentials">Wrong email or password</string>
+    <string name="auth_error_email_in_use">An account with this email already exists</string>
+    <string name="auth_error_network">No connection. Check your internet and try again.</string>
+    <string name="auth_error_too_many_requests">Too many attempts. Try again later.</string>
+    <string name="auth_error_sign_in_failed">Sign-in failed. Try again.</string>
+    <string name="auth_error_sign_up_failed">Sign-up failed. Try again.</string>
 
     <!-- Placeholder screens (Phase 1) -->
     <string name="placeholder_note">Placeholder: this screen is built in a later phase.</string>

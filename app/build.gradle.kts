@@ -82,6 +82,7 @@ dependencies {
 
     // Dependency injection
     implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
     ksp(libs.hilt.compiler)
 
     // Kotlin

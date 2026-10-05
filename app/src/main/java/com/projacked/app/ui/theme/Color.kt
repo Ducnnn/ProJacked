@@ -37,6 +37,7 @@ internal val AttendancePlannedBlue = Color(0xFF2B59FF)
 /** App-specific colours that have no Material 3 colour role. */
 @Immutable
 data class ExtendedColors(
+    val screenTitle: Color,
     val cardBorder: Color,
     val exerciseCompleted: Color,
     val restDay: Color,
@@ -53,6 +54,7 @@ data class ExtendedColors(
 )
 
 internal val LightExtendedColors = ExtendedColors(
+    screenTitle = White,
     cardBorder = White,
     exerciseCompleted = CompletedGrey,
     restDay = RestSalmon,

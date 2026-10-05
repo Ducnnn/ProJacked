@@ -1,7 +1,14 @@
 package com.projacked.app.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,20 +24,30 @@ import com.projacked.app.ui.screens.meals.MealsScreen
 import com.projacked.app.ui.screens.parameters.ParametersScreen
 import com.projacked.app.ui.screens.plan.TrainingPlanScreen
 import com.projacked.app.ui.screens.profile.ProfileScreen
+import com.projacked.app.ui.screens.profile.ProfileViewModel
 
 /**
  * The app's navigation graph. Back always pops the stack (no forward-navigating back handlers, unlike the old app).
  * Signing in makes Home the root, so Back on Home leaves the app; logging out clears the stack.
- * The start destination becomes auth-dependent in Phase 3.
+ * The app starts on Home when someone is already signed in, otherwise on Welcome. Any change from signed in to
+ * signed out (Log out, or Firebase ending the session) returns to Welcome with the back stack cleared.
  */
 @Composable
 fun ProJackedNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
+    sessionViewModel: SessionViewModel = hiltViewModel(),
 ) {
+    val isSignedIn by sessionViewModel.isSignedIn.collectAsStateWithLifecycle()
+    var wasSignedIn by rememberSaveable { mutableStateOf(isSignedIn) }
+    LaunchedEffect(isSignedIn) {
+        if (wasSignedIn && !isSignedIn) navController.navigateToWelcomeClearingStack()
+        wasSignedIn = isSignedIn
+    }
+
     NavHost(
         navController = navController,
-        startDestination = Route.Welcome,
+        startDestination = sessionViewModel.startRoute,
         modifier = modifier,
     ) {
         composable<Route.Welcome> {
@@ -40,10 +57,10 @@ fun ProJackedNavHost(
             )
         }
         composable<Route.SignIn> {
-            SignInScreen(onSignedIn = navController::navigateToHomeAsRoot)
+            SignInScreen(onSignedIn = navController::navigateToHomeAsRoot, viewModel = hiltViewModel())
         }
         composable<Route.SignUp> {
-            SignUpScreen(onSignedUp = navController::navigateToHomeAsRoot)
+            SignUpScreen(onSignedUp = navController::navigateToHomeAsRoot, viewModel = hiltViewModel())
         }
         composable<Route.Home> {
             HomeScreen(
@@ -75,7 +92,8 @@ fun ProJackedNavHost(
             ParametersScreen(onSubmitted = navController::popBackStack)
         }
         composable<Route.Profile> {
-            ProfileScreen(onLoggedOut = navController::navigateToWelcomeClearingStack)
+            val viewModel: ProfileViewModel = hiltViewModel()
+            ProfileScreen(onLogOut = viewModel::logOut)
         }
     }
 }

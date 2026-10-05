@@ -13,6 +13,11 @@ interface ProfileRepository {
 
     suspend fun createProfile(profile: UserProfile): Result<Unit>
 
+    /**
+     * Creates the document only if it doesn't exist; never overwrites. True when it created it. Fails when offline.
+     */
+    suspend fun createProfileIfMissing(profile: UserProfile): Result<Boolean>
+
     /** Saves the body parameters, leaving other profile fields alone. Creates the document if it's missing. */
     suspend fun updateParameters(parameters: BodyParameters): Result<Unit>
 

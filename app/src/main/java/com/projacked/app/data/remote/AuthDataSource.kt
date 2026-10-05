@@ -23,6 +23,8 @@ class AuthDataSource @Inject constructor(
 
     fun currentUserId(): String? = auth.currentUser?.uid
 
+    fun currentUserEmail(): String? = auth.currentUser?.email
+
     suspend fun signIn(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).await()
     }
