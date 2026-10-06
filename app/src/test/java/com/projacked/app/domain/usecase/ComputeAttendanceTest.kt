@@ -31,9 +31,18 @@ class ComputeAttendanceTest {
     }
 
     @Test
-    fun `today and past workouts with nothing finished are missed`() {
-        assertEquals(AttendanceLevel.MISSED, computeAttendance(workout(4, 0), today, today))
+    fun `past workout with nothing finished is missed`() {
         assertEquals(AttendanceLevel.MISSED, computeAttendance(workout(4, 0), today.minusDays(1), today))
+    }
+
+    @Test
+    fun `today with nothing finished is planned`() {
+        assertEquals(AttendanceLevel.PLANNED, computeAttendance(workout(4, 0), today, today))
+    }
+
+    @Test
+    fun `today with one finished uses the percentage levels`() {
+        assertEquals(AttendanceLevel.LOW, computeAttendance(workout(4, 1), today, today))
     }
 
     @Test

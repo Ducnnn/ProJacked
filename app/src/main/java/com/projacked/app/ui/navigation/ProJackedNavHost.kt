@@ -68,6 +68,7 @@ fun ProJackedNavHost(
                 onCurrentDay = { navController.navigate(Route.CurrentDay) },
                 onMeals = { navController.navigate(Route.Meals) },
                 onProfile = { navController.navigate(Route.Profile) },
+                viewModel = hiltViewModel(),
             )
         }
         composable<Route.TrainingPlan> {

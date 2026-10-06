@@ -1,11 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ProJacked</string>
 
     <!-- Screen titles -->
     <string name="screen_welcome">Welcome!</string>
     <string name="screen_sign_in">Sign in</string>
     <string name="screen_sign_up">Sign up</string>
-    <string name="screen_home">Home</string>
     <string name="screen_training_plan">Training plan</string>
     <string name="screen_day_constructor">Day constructor</string>
     <string name="screen_current_day">Current day</string>
@@ -44,6 +43,53 @@
     <string name="auth_error_too_many_requests">Too many attempts. Try again later.</string>
     <string name="auth_error_sign_in_failed">Sign-in failed. Try again.</string>
     <string name="auth_error_sign_up_failed">Sign-up failed. Try again.</string>
+
+    <!-- Home -->
+    <string name="action_retry">Retry</string>
+    <string name="action_close">Close</string>
+    <string name="home_rest_day">Rest day</string>
+    <string name="home_nothing_planned">Nothing planned</string>
+    <string name="home_pie_protein">Protein</string>
+    <string name="home_pie_fats">Fats</string>
+    <string name="home_pie_carbs">Carbohydrates</string>
+    <string name="home_calendar_previous_month">Previous month</string>
+    <string name="home_calendar_next_month">Next month</string>
+    <string name="home_calendar_error">Couldn\'t load your workouts</string>
+    <string name="home_legend_nothing_planned">Nothing planned</string>
+    <string name="home_legend_missed">Missed</string>
+    <string name="home_legend_less">Less</string>
+    <string name="home_legend_more">More</string>
+    <string name="home_legend_planned">Planned</string>
+    <string name="home_cell_description">%1$s, %2$s</string>
+    <string name="home_cell_today">%1$s, today</string>
+    <string name="home_level_nothing_planned">nothing planned</string>
+    <string name="home_level_missed">missed</string>
+    <string name="home_level_low" tools:ignore="PluralsCandidate">1 to 25% done</string>
+    <string name="home_level_medium" tools:ignore="PluralsCandidate">26 to 50% done</string>
+    <string name="home_level_high" tools:ignore="PluralsCandidate">51 to 75% done</string>
+    <string name="home_level_full" tools:ignore="PluralsCandidate">76 to 100% done</string>
+    <string name="home_level_planned">planned</string>
+    <string name="home_preview_finished">Finished</string>
+    <string name="home_preview_no_sets">No sets logged</string>
+    <string name="home_preview_set">Set %1$d · %2$s × %3$s kg</string>
+    <plurals name="home_reps">
+        <item quantity="one">%d rep</item>
+        <item quantity="other">%d reps</item>
+    </plurals>
+    <string name="home_profile_age">Age</string>
+    <string name="home_profile_height">Height</string>
+    <string name="home_profile_weight">Weight</string>
+    <string name="home_profile_height_value">%s cm</string>
+    <string name="home_profile_weight_value">%s kg</string>
+    <string name="home_profile_unknown">–</string>
+
+    <!-- Muscle groups -->
+    <string name="muscle_chest">Chest</string>
+    <string name="muscle_back">Back</string>
+    <string name="muscle_shoulders">Shoulders</string>
+    <string name="muscle_arms">Arms</string>
+    <string name="muscle_core">Core</string>
+    <string name="muscle_legs">Legs</string>
 
     <!-- Placeholder screens (Phase 1) -->
     <string name="placeholder_note">Placeholder: this screen is built in a later phase.</string>

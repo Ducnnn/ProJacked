@@ -19,8 +19,8 @@ data class ExerciseDto(
     var description: String = "",
     var sets: List<WorkoutSetDto> = emptyList(),
     /**
-     * The old app's `isCompleted` property, which Firestore stored as `completed`.
-     * TODO(owner check): confirm the key in a real TrainingDays document.
+     * The old app's `isCompleted` property, which Firestore stored as `completed` (confirmed in a real
+     * TrainingDays document, 2026-10-06).
      */
     @get:PropertyName("completed") @set:PropertyName("completed")
     var completed: Boolean = false,

@@ -5,7 +5,7 @@ enum class AttendanceLevel {
     /** No exercises on that date (rest day or nothing assigned). */
     NOTHING_PLANNED,
 
-    /** Exercises were planned for today or a past date, and none were finished. */
+    /** Exercises were planned for a past date, and none were finished. Today is never missed: see [PLANNED]. */
     MISSED,
 
     /** 1–25% of the exercises finished. */
@@ -20,6 +20,6 @@ enum class AttendanceLevel {
     /** 76–100% finished. */
     FULL,
 
-    /** A future date with exercises planned. */
+    /** A future date with exercises planned, or today with exercises planned and none finished yet. */
     PLANNED,
 }

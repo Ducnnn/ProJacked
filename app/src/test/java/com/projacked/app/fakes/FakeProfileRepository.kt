@@ -7,6 +7,7 @@ import com.projacked.app.domain.repository.ProfileRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 
 /**
  * In-memory [ProfileRepository] holding a single profile. Set [createProfileError] to make writes fail and
@@ -18,7 +19,11 @@ class FakeProfileRepository : ProfileRepository {
     var createDelayMillis: Long = 0
     val createCalls = mutableListOf<UserProfile>()
 
-    override fun observeProfile(): Flow<UserProfile?> = profile
+    /** When set, [observeProfile] fails as soon as it is collected. */
+    var observeError: Exception? = null
+
+    override fun observeProfile(): Flow<UserProfile?> =
+        observeError?.let { error -> flow { throw error } } ?: profile
 
     override suspend fun createProfile(profile: UserProfile): Result<Unit> {
         createCalls += profile

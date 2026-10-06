@@ -85,6 +85,9 @@ dependencies {
     implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
     ksp(libs.hilt.compiler)
 
+    // Calendar
+    implementation(libs.kizitonwose.calendar.compose)
+
     // Kotlin
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.play.services)
