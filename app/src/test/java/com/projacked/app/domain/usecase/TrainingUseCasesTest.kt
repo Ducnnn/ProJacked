@@ -15,7 +15,7 @@ class TrainingUseCasesTest {
 
     private val repository = FakeTrainingRepository()
     private val assignTemplateToDate = AssignTemplateToDate(repository)
-    private val copyPreviousWeek = CopyPreviousWeek(repository, assignTemplateToDate)
+    private val copyPreviousWeek = CopyPreviousWeek(repository)
 
     private val monday = LocalDate.of(2026, 9, 28)
 
@@ -76,12 +76,51 @@ class TrainingUseCasesTest {
         assertEquals(push, repository.days[nextMonday])
     }
 
+
     @Test
-    fun `copy previous week stops and reports the first failure`() = runTest {
-        repository.failingDate = monday.plusDays(3).minusWeeks(1)
+    fun `a stored rest document with no exercises copies as rest`() = runTest {
+        val wednesday = monday.plusDays(2)
+        repository.days[wednesday.minusWeeks(1)] = TrainingDay("Rest", "#ffa9a3")
+        repository.days[wednesday] = push
+
+        assertTrue(copyPreviousWeek(monday).isSuccess)
+
+        assertFalse(wednesday in repository.days)
+    }
+
+    @Test
+    fun `copy previous week reads the earlier week once from the server and writes once`() = runTest {
+        repository.days[monday.minusWeeks(1)] = push
+
+        copyPreviousWeek(monday)
+
+        assertEquals(listOf(monday.minusDays(7) to monday), repository.serverReads)
+        val batch = repository.savedBatches.single()
+        assertEquals((0L until 7L).map { monday.plusDays(it) }.toSet(), batch.keys)
+        assertEquals(1, repository.writeCount)
+    }
+
+    @Test
+    fun `a failed server read returns the failure and writes nothing`() = runTest {
+        repository.days[monday] = push
+        repository.serverReadError = IllegalStateException("offline")
 
         val result = copyPreviousWeek(monday)
 
         assertTrue(result.isFailure)
+        assertTrue(repository.savedBatches.isEmpty())
+        assertEquals(push, repository.days[monday])
+    }
+
+    @Test
+    fun `a failed batch returns the failure and changes nothing`() = runTest {
+        repository.days[monday] = push
+        repository.days[monday.minusWeeks(1)] = push.copy(name = "Old")
+        repository.writeError = IllegalStateException("rejected")
+
+        val result = copyPreviousWeek(monday)
+
+        assertTrue(result.isFailure)
+        assertEquals(push, repository.days[monday])
     }
 }

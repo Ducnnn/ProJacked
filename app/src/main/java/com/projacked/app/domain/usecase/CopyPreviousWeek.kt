@@ -1,25 +1,29 @@
 package com.projacked.app.domain.usecase
 
+import com.projacked.app.domain.model.TrainingDay
 import com.projacked.app.domain.repository.TrainingRepository
 import java.time.LocalDate
 import javax.inject.Inject
 
 /**
  * Copies each of the 7 days starting at `weekStart` from the same weekday one week earlier. Logged values and
- * completion are cleared but the number of sets is kept. Rest days copy as rest days.
- * Stops at the first failure and returns it.
+ * completion are cleared but the number of sets is kept. Rest days copy as rest days, which deletes the target
+ * date's document.
+ *
+ * All or nothing: the earlier week is read from the server (so this needs a connection), and if that fails nothing
+ * is written. Otherwise the 7 days are written in one batch.
  */
 class CopyPreviousWeek @Inject constructor(
     private val trainingRepository: TrainingRepository,
-    private val assignTemplateToDate: AssignTemplateToDate,
 ) {
     suspend operator fun invoke(weekStart: LocalDate): Result<Unit> {
-        for (offset in 0L until DAYS_IN_WEEK) {
+        val source = trainingRepository.getDaysFromServer(weekStart.minusDays(DAYS_IN_WEEK), weekStart)
+            .getOrElse { return Result.failure(it) }
+        val targets = (0 until DAYS_IN_WEEK).associate { offset ->
             val date = weekStart.plusDays(offset)
-            val previous = trainingRepository.getDay(date.minusWeeks(1)).getOrElse { return Result.failure(it) }
-            assignTemplateToDate(date, previous.resetProgress()).onFailure { return Result.failure(it) }
+            date to (source[date.minusDays(DAYS_IN_WEEK)] ?: TrainingDay.REST).resetProgress()
         }
-        return Result.success(Unit)
+        return trainingRepository.saveDays(targets)
     }
 
     private companion object {

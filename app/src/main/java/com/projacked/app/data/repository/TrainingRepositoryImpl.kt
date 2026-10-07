@@ -57,6 +57,20 @@ class TrainingRepositoryImpl @Inject constructor(
             }
         }
 
+    override suspend fun getDaysFromServer(from: LocalDate, toExclusive: LocalDate): Result<Map<LocalDate, TrainingDay>> =
+        resultOf {
+            firestoreDataSource.getTrainingDaysFromServer(requireUid(), from, toExclusive)
+                .mapNotNull { (id, dto) -> id.toLocalDateOrNull()?.let { it to dto.toDomain() } }
+                .toMap()
+        }
+
+    override suspend fun saveDays(days: Map<LocalDate, TrainingDay>): Result<Unit> = resultOf {
+        firestoreDataSource.writeTrainingDays(
+            requireUid(),
+            days.mapValues { (_, day) -> if (day.isRest) null else day.toDto() },
+        )
+    }
+
     override suspend fun saveDay(date: LocalDate, day: TrainingDay): Result<Unit> = resultOf {
         firestoreDataSource.setTrainingDay(requireUid(), date, day.toDto())
     }

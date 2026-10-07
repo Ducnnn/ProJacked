@@ -72,7 +72,10 @@ fun ProJackedNavHost(
             )
         }
         composable<Route.TrainingPlan> {
-            TrainingPlanScreen(onAddWorkout = { navController.navigate(Route.DayConstructor) })
+            TrainingPlanScreen(
+                onAddWorkout = { navController.navigate(Route.DayConstructor) },
+                viewModel = hiltViewModel(),
+            )
         }
         composable<Route.DayConstructor> {
             DayConstructorScreen(onSaved = navController::popBackStack)

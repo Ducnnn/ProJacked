@@ -30,6 +30,18 @@ interface TrainingRepository {
 
     suspend fun saveDay(date: LocalDate, day: TrainingDay): Result<Unit>
 
+    /**
+     * One range read of [from, toExclusive) from the server only, so it fails when offline. Only dates with a
+     * stored workout appear. It never comes from the cache, so a copy can't act on stale or empty cached data.
+     */
+    suspend fun getDaysFromServer(from: LocalDate, toExclusive: LocalDate): Result<Map<LocalDate, TrainingDay>>
+
+    /**
+     * Writes every entry in one atomic batch: all or nothing. A day with [TrainingDay.isRest] deletes that date's
+     * document; any other day replaces it, as [saveDay] does.
+     */
+    suspend fun saveDays(days: Map<LocalDate, TrainingDay>): Result<Unit>
+
     /** Removes the workout from [date], making it a rest day. */
     suspend fun deleteDay(date: LocalDate): Result<Unit>
 

@@ -16,6 +16,13 @@ data class TrainingDay(
     val isRest: Boolean
         get() = name == REST_NAME && colorHex.equals(REST_COLOR_HEX, ignoreCase = true) && exercises.isEmpty()
 
+    /**
+     * True when any exercise is finished or has a set with a value. The training plan asks before replacing a
+     * day like this, so logged sets aren't lost silently.
+     */
+    val hasLoggedProgress: Boolean
+        get() = exercises.any { exercise -> exercise.completed || exercise.sets.any { !it.isEmpty } }
+
     /** Clears every exercise's logged values and completion, keeping the number of sets. */
     fun resetProgress(): TrainingDay = copy(exercises = exercises.map { it.resetProgress() })
 
