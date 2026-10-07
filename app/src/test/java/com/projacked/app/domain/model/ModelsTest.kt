@@ -79,6 +79,21 @@ class TrainingDayTest {
         assertFalse(TrainingDay("Rest", "#ffa9a3", listOf(Exercise("Stretch"))).isRest)
         assertFalse(TrainingDay("Rest", "#00ff00").isRest)
     }
+
+    private fun day(exercise: Exercise) = TrainingDay("Push", "#ff8800", listOf(exercise))
+
+    @Test
+    fun `a fresh template and rest have no logged progress`() {
+        assertFalse(TrainingDay.REST.hasLoggedProgress)
+        assertFalse(day(Exercise("Bench press")).hasLoggedProgress)
+    }
+
+    @Test
+    fun `a completed exercise or a set with only reps or only weight is logged progress`() {
+        assertTrue(day(Exercise("Bench press", completed = true)).hasLoggedProgress)
+        assertTrue(day(Exercise("Bench press", sets = listOf(WorkoutSet(reps = 5)))).hasLoggedProgress)
+        assertTrue(day(Exercise("Bench press", sets = listOf(WorkoutSet(weightKg = 20.0)))).hasLoggedProgress)
+    }
 }
 
 class NutritionTotalsTest {

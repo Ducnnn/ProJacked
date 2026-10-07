@@ -5,7 +5,6 @@
     <string name="screen_welcome">Welcome!</string>
     <string name="screen_sign_in">Sign in</string>
     <string name="screen_sign_up">Sign up</string>
-    <string name="screen_training_plan">Training plan</string>
     <string name="screen_day_constructor">Day constructor</string>
     <string name="screen_current_day">Current day</string>
     <string name="screen_meals">Meals</string>
@@ -82,6 +81,33 @@
     <string name="home_profile_height_value">%s cm</string>
     <string name="home_profile_weight_value">%s kg</string>
     <string name="home_profile_unknown">–</string>
+
+    <!-- Training plan -->
+    <string name="action_cancel">Cancel</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_replace">Replace</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_copy_previous_week">Copy from previous week</string>
+    <string name="plan_previous_week">Previous week</string>
+    <string name="plan_next_week">Next week</string>
+    <string name="plan_cell_description">%1$s, %2$s</string>
+    <string name="plan_cell_today">%1$s, today</string>
+    <string name="plan_week_error">Couldn\'t load this week</string>
+    <string name="plan_copy_title">Copy last week?</string>
+    <string name="plan_copy_text">This replaces the workouts on %1$s with those from %2$s. Logged sets on those days will be lost.</string>
+    <string name="plan_copied">Last week copied</string>
+    <string name="plan_copy_failed">Couldn\'t copy last week. Check your connection and try again.</string>
+    <string name="plan_assign_now">Now: %1$s</string>
+    <string name="plan_no_workouts_yet">No workouts yet</string>
+    <string name="plan_replace_title">Replace %1$s?</string>
+    <string name="plan_replace_text">%1$s has logged sets. They\'ll be lost.</string>
+    <string name="plan_save_failed">Couldn\'t save the change. Try again.</string>
+    <string name="plan_list_header">List of workouts</string>
+    <string name="plan_list_empty">No workouts yet. Tap Add new workout to make one.</string>
+    <string name="plan_list_error">Couldn\'t load your workouts</string>
+    <string name="plan_delete_title">Delete %1$s?</string>
+    <string name="plan_delete_text">It\'s removed from your list. Days it\'s already on keep it.</string>
+    <string name="plan_delete_failed">Couldn\'t delete %1$s. Try again.</string>
 
     <!-- Muscle groups -->
     <string name="muscle_chest">Chest</string>

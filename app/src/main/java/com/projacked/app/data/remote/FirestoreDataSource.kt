@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.snapshots
 import com.projacked.app.data.remote.dto.ExerciseDto
 import com.projacked.app.data.remote.dto.MealDayDto
@@ -90,6 +91,32 @@ class FirestoreDataSource @Inject constructor(
             .map { query ->
                 query.documents.mapNotNull { document -> document.toTrainingDayOrNull()?.let { document.id to it } }.toMap()
             }
+
+    /**
+     * The same range as [observeTrainingDays], read once from the server only (fails offline), keyed by document id.
+     */
+    suspend fun getTrainingDaysFromServer(uid: String, from: LocalDate, toExclusive: LocalDate): Map<String, TrainingDayDto> =
+        db.collection(FirestorePaths.trainingDays(uid))
+            .whereGreaterThanOrEqualTo(FieldPath.documentId(), FirestorePaths.dateId(from))
+            .whereLessThan(FieldPath.documentId(), FirestorePaths.dateId(toExclusive))
+            .get(Source.SERVER)
+            .await()
+            .documents
+            .mapNotNull { document -> document.toTrainingDayOrNull()?.let { document.id to it } }
+            .toMap()
+
+    /**
+     * Sets and deletes training-day documents in one batch: a null value deletes that date's document, anything
+     * else replaces it. All or nothing.
+     */
+    suspend fun writeTrainingDays(uid: String, days: Map<LocalDate, TrainingDayDto?>) {
+        val batch = db.batch()
+        for ((date, day) in days) {
+            val ref = db.document(FirestorePaths.trainingDay(uid, date))
+            if (day == null) batch.delete(ref) else batch.set(ref, day)
+        }
+        batch.commit().await()
+    }
 
     suspend fun setTrainingDay(uid: String, date: LocalDate, day: TrainingDayDto) {
         db.document(FirestorePaths.trainingDay(uid, date)).set(day).await()
