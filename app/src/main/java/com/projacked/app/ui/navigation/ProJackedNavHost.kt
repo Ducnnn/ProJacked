@@ -78,7 +78,11 @@ fun ProJackedNavHost(
             )
         }
         composable<Route.DayConstructor> {
-            DayConstructorScreen(onSaved = navController::popBackStack)
+            DayConstructorScreen(
+                onSaved = navController::popBackStack,
+                onBack = navController::popBackStack,
+                viewModel = hiltViewModel(),
+            )
         }
         composable<Route.CurrentDay> {
             CurrentDayScreen()

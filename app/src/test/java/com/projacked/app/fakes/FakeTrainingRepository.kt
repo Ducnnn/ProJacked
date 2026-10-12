@@ -48,7 +48,11 @@ class FakeTrainingRepository : TrainingRepository {
         templateStore.value = templateStore.value + (template.name to template)
     }
 
+    /** Every template passed to [saveTemplate], in order, including calls that failed. */
+    val savedTemplates = mutableListOf<TrainingDay>()
+
     override suspend fun saveTemplate(template: TrainingDay): Result<Unit> {
+        savedTemplates += template
         writeError?.let { return Result.failure(it) }
         setTemplate(template)
         return Result.success(Unit)

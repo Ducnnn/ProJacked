@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.projacked.app.R
 import com.projacked.app.domain.model.Exercise
 import com.projacked.app.domain.model.MuscleGroup
+import com.projacked.app.ui.components.muscleNameRes
 import com.projacked.app.domain.model.TrainingDay
 import com.projacked.app.domain.model.WorkoutSet
 import com.projacked.app.ui.theme.CardBorderWidth
@@ -109,15 +110,6 @@ private fun ExerciseBlock(exercise: Exercise) {
             }
         }
     }
-}
-
-private fun muscleNameRes(group: MuscleGroup): Int = when (group) {
-    MuscleGroup.CHEST -> R.string.muscle_chest
-    MuscleGroup.BACK -> R.string.muscle_back
-    MuscleGroup.SHOULDERS -> R.string.muscle_shoulders
-    MuscleGroup.ARMS -> R.string.muscle_arms
-    MuscleGroup.CORE -> R.string.muscle_core
-    MuscleGroup.LEGS -> R.string.muscle_legs
 }
 
 @Preview(showBackground = true)

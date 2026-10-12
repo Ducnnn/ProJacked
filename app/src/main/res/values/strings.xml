@@ -5,7 +5,6 @@
     <string name="screen_welcome">Welcome!</string>
     <string name="screen_sign_in">Sign in</string>
     <string name="screen_sign_up">Sign up</string>
-    <string name="screen_day_constructor">Day constructor</string>
     <string name="screen_current_day">Current day</string>
     <string name="screen_meals">Meals</string>
     <string name="screen_meal_constructor">Meal constructor</string>
@@ -108,6 +107,53 @@
     <string name="plan_delete_title">Delete %1$s?</string>
     <string name="plan_delete_text">It\'s removed from your list. Days it\'s already on keep it.</string>
     <string name="plan_delete_failed">Couldn\'t delete %1$s. Try again.</string>
+
+    <!-- Day constructor -->
+    <string name="action_add_exercise">Add exercise</string>
+    <string name="action_save_workout">Save workout</string>
+    <string name="action_add">Add</string>
+    <string name="action_discard">Discard</string>
+    <string name="action_keep_editing">Keep editing</string>
+    <string name="dc_name_placeholder">Workout name</string>
+    <string name="dc_error_name_blank">Enter a name</string>
+    <string name="dc_error_name_slash">A name can\'t contain /</string>
+    <string name="dc_error_name_reserved">This name can\'t be used</string>
+    <string name="dc_exercises_header">Exercises</string>
+    <string name="dc_exercises_empty">No exercises yet. Tap Add exercise to add one.</string>
+    <string name="dc_exercise_row_description">%1$s, %2$s</string>
+    <string name="dc_exercise_delete_description">Delete %1$s</string>
+    <string name="dc_exercise_title_new">New exercise</string>
+    <string name="dc_exercise_title_edit">Edit exercise</string>
+    <string name="dc_exercise_name">Name</string>
+    <string name="dc_exercise_muscle">Muscle group</string>
+    <string name="dc_exercise_notes">Notes (optional)</string>
+    <string name="dc_exercise_error_name">Enter the exercise name</string>
+    <string name="dc_color_button_description">Colour: %1$s. Change colour</string>
+    <string name="dc_color_dialog_title">Pick a colour</string>
+    <string name="dc_templates_error">Couldn\'t check your saved workouts</string>
+    <string name="dc_replace_title">Replace %1$s?</string>
+    <string name="dc_replace_text">Your saved %1$s workout will be replaced. Days it\'s already on keep it.</string>
+    <string name="dc_discard_title">Discard this workout?</string>
+    <string name="dc_discard_text">What you\'ve entered will be lost.</string>
+    <string name="dc_save_failed">Couldn\'t save the workout. Try again.</string>
+
+    <!-- Template colours -->
+    <string name="color_red">Red</string>
+    <string name="color_pink">Pink</string>
+    <string name="color_purple">Purple</string>
+    <string name="color_deep_purple">Deep purple</string>
+    <string name="color_indigo">Indigo</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_light_blue">Light blue</string>
+    <string name="color_cyan">Cyan</string>
+    <string name="color_teal">Teal</string>
+    <string name="color_green">Green</string>
+    <string name="color_light_green">Light green</string>
+    <string name="color_lime">Lime</string>
+    <string name="color_amber">Amber</string>
+    <string name="color_orange">Orange</string>
+    <string name="color_brown">Brown</string>
+    <string name="color_blue_grey">Blue grey</string>
 
     <!-- Muscle groups -->
     <string name="muscle_chest">Chest</string>
