@@ -7,6 +7,7 @@ import com.projacked.app.data.remote.FirestoreDataSource
 import com.projacked.app.domain.model.Exercise
 import com.projacked.app.domain.model.NotSignedInException
 import com.projacked.app.domain.model.TrainingDay
+import com.projacked.app.domain.model.isAllowedTemplateDocumentId
 import com.projacked.app.domain.repository.TrainingRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -90,7 +91,7 @@ class TrainingRepositoryImpl @Inject constructor(
      * must be a valid Firestore document id. The UI validates names too (Phase 6); this is the safety net.
      */
     private fun requireValidTemplateName(name: String) {
-        require(name.isNotBlank() && '/' !in name && name != "." && name != "..") {
+        require(isAllowedTemplateDocumentId(name)) {
             "\"$name\" can't be used as a template name"
         }
     }
