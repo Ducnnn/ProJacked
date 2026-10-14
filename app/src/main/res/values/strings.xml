@@ -163,6 +163,25 @@
     <string name="muscle_core">Core</string>
     <string name="muscle_legs">Legs</string>
 
+    <!-- Workout logger (Phase 7) -->
+    <string name="logger_nothing_to_log">Nothing to log today.</string>
+    <string name="logger_load_error">Couldn\'t load today\'s workout</string>
+    <string name="logger_finished">Finished</string>
+    <string name="logger_not_finished">Not finished</string>
+    <string name="logger_set_selected">Set %1$d of %2$d</string>
+    <string name="logger_set_item">Set %1$d</string>
+    <string name="logger_set_label">Set</string>
+    <string name="logger_reps">Reps</string>
+    <string name="logger_weight">Weight (kg)</string>
+    <string name="logger_field_placeholder">0</string>
+    <string name="logger_reps_error">Enter a whole number from 0 to 999</string>
+    <string name="logger_weight_error">Enter a weight from 0 to 999.99</string>
+    <string name="logger_weight_decimals_error">Use at most 2 decimals</string>
+    <string name="logger_add_set">Add set</string>
+    <string name="logger_delete_set">Delete last set</string>
+    <string name="logger_card_heading">%1$s, %2$s</string>
+    <string name="logger_save_failed">Couldn\'t save your sets.</string>
+
     <!-- Placeholder screens (Phase 1) -->
     <string name="placeholder_note">Placeholder: this screen is built in a later phase.</string>
 </resources>
