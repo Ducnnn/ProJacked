@@ -64,8 +64,19 @@ class FakeTrainingRepository : TrainingRepository {
         return Result.success(Unit)
     }
 
-    override suspend fun getDay(date: LocalDate): Result<TrainingDay> =
-        Result.success(days[date] ?: TrainingDay.REST)
+    /** When set, [getDay] fails. */
+    var getDayError: Exception? = null
+
+    /** Every call to [updateExercises] as (date, exercises), in order, including failed ones. */
+    val exerciseUpdates = mutableListOf<Pair<LocalDate, List<Exercise>>>()
+
+    /** When set, [updateExercises] fails and changes nothing. */
+    var updateExercisesError: Exception? = null
+
+    override suspend fun getDay(date: LocalDate): Result<TrainingDay> {
+        getDayError?.let { return Result.failure(it) }
+        return Result.success(days[date] ?: TrainingDay.REST)
+    }
 
     override suspend fun getDaysFromServer(from: LocalDate, toExclusive: LocalDate): Result<Map<LocalDate, TrainingDay>> {
         serverReads += from to toExclusive
@@ -130,6 +141,8 @@ class FakeTrainingRepository : TrainingRepository {
 
     override suspend fun updateExercises(date: LocalDate, exercises: List<Exercise>): Result<Unit> {
         writeCount++
+        exerciseUpdates += date to exercises
+        updateExercisesError?.let { return Result.failure(it) }
         val day = days[date] ?: return Result.failure(NoSuchElementException("No workout on $date"))
         setDay(date, day.copy(exercises = exercises))
         return Result.success(Unit)

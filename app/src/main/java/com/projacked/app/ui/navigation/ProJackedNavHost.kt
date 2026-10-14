@@ -85,7 +85,7 @@ fun ProJackedNavHost(
             )
         }
         composable<Route.CurrentDay> {
-            CurrentDayScreen()
+            CurrentDayScreen(viewModel = hiltViewModel())
         }
         composable<Route.Meals> {
             MealsScreen(
